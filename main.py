@@ -2,7 +2,7 @@ import streamlit as st
 import os
 import pickle
 from langchain_community.document_loaders import PyPDFLoader
-from torchvision.transforms.v2 import functional as tvF
+#from torchvision.transforms import functional as tvF
 from langchain_groq import ChatGroq
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_core.prompts import PromptTemplate
