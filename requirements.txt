@@ -28,23 +28,20 @@ python-dotenv
 numpy
 scikit-learn
 
-torch==2.3.1
-torchvision==0.18.1
 
 streamlit
 langchain
 langchain-community
-langchain-openai
+
 langchain-groq
 langchain-huggingface
-langchain-google-genai
+
 langchain-text-splitters
 faiss-cpu
 pypdf
 sentence-transformers
 torch
-google-generativeai
-python-dotenv
+
 beautifulsoup4
 lxml
 requests
