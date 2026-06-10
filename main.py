@@ -49,18 +49,6 @@ for i in range(3):
     if url.startswith('http://') or url.startswith('https://'):
         urls.append(url)
 
-# processed_url=st.sidebar.button(' Start Processing ')
-# if processed_url:
-#     loader=WebBaseLoader(urls)
-#     url_data=loader.load()
-#     processor.text('data loading ....')
-#     splitter = RecursiveCharacterTextSplitter(chunk_size=200, chunk_overlap=20)
-#     docs = splitter.split_documents(url_data)
-#     embeddings = embeddings
-#     processor.text('embedding urls ....')
-#     vector_store = FAISS.from_documents(docs, embeddings)
-#     vector_store.save_local('faiss_index')
-#     processor.text('')
 
 st.sidebar.markdown('Upload PDF')
 uploaded_file=st.sidebar.file_uploader(label='Upload PDF',type='pdf')
@@ -96,14 +84,6 @@ if processed_url:
     vector_store.save_local('faiss_index')
     processor.text('')
 
-
-
-
-
-
-
-
-
 if not groq_api_key:
     st.sidebar.warning("First enter Groq API key")
 
@@ -111,15 +91,20 @@ query = st.text_input('Question: ')
 if groq_api_key:
     model=ChatGroq(
         api_key=groq_api_key,
-        model="llama-3.1-8b-instant",
-        temperature=1.9)
+        model="llama-3.3-70b-versatile",
+        temperature=0.3)
     
 
 prompt = PromptTemplate(
     template="""
 Answer the question using only the provided context and elaborate the answer like proper sentence.
+Instructions:
+- Give detailed and well-structured answers.
+- Explain concepts clearly.
+- If information exists in the context, prioritize it.
+- If the answer is not available in the context, clearly state that the information was not found in the provided documents.
+- Do not make up facts.
 
-If the answer is not present in the context, say "I don't know, first provide me source".
 
 Context:
 {context}
@@ -138,7 +123,7 @@ if query:
                 embeddings=embeddings,
                 allow_dangerous_deserialization=True
     )
-    retriever = vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 5})
+    retriever = vector_store.as_retriever(search_type="mmr", search_kwargs={"k": 5,"fetch_k":15})
     question_answer_chain = create_stuff_documents_chain(llm=model, prompt=prompt)
     rag_chain = create_retrieval_chain(retriever, question_answer_chain)
     result = rag_chain.invoke({'input':query})
