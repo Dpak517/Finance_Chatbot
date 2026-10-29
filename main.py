@@ -16,7 +16,7 @@ from langchain_classic.chains.combine_documents import create_stuff_documents_ch
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 #load_dotenv()
-st.header('**Finance Chatbot** 📈')
+st.header(':blue[**Finance** **Chatbot**] 📈')
 #st.header(':rainbow[**Finance Chatbot**]')
 
 
