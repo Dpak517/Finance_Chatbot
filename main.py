@@ -41,7 +41,7 @@ if groq_api_key!='':
 
 
 st.sidebar.title('NEWS Article links')
-embeddings=HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+embeddings=HuggingFaceEmbeddings(model_name="openai/gpt-oss-120b")
 processor=st.empty()
 urls=[]
 for i in range(3):
