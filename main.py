@@ -100,10 +100,15 @@ if not groq_api_key:
 
 query = st.text_input('Question: ')
 if groq_api_key:
-    model=ChatGroq(
-        api_key=groq_api_key,
-        model="llama-3.3-70b-versatile",
-        temperature=0.3)
+    model = ChatGroq(
+    model="openai/gpt-oss-120b",
+    api_key=groq_api_key,
+    temperature=0.6)
+
+    # model=ChatGroq(
+    #     api_key=groq_api_key,
+    #     model="llama-3.3-70b-versatile",
+    #     temperature=0.3)
     
 
 prompt = PromptTemplate(
